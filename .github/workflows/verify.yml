@@ -1,0 +1,15 @@
+name: Lean kernel and finite model audit
+on: [push, pull_request, workflow_dispatch]
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install elan bootstrap
+        run: |
+          curl https://elan.lean-lang.org/elan-init.sh -sSf | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - name: Fetch the locked environment
+        run: lake exe cache get Mathlib.Logic.Relation Mathlib.Data.Int.Basic Mathlib.Tactic.Basic Mathlib.NumberTheory.LSeries.RiemannZeta Mathlib.Order.CompleteLattice.Defs Mathlib.Topology.Compactness.Compact Mathlib.CategoryTheory.Category.Preorder Mathlib.CategoryTheory.Limits.Shapes.IsTerminal
+      - name: Verify all proofs and model counts
+        run: python3 verify.py

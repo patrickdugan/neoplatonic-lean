@@ -1,0 +1,6 @@
+Neoplatonic\Symmetry.lean:41:7: warning: unused variable `n`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+Neoplatonic\Symmetry.lean:41:34: warning: unused variable `n`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`

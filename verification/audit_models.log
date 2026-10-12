@@ -1,0 +1,4 @@
+n=1: {'acyclic': 1, 'coherent': 1, 'one_found': 1, 'counterexamples': 0}; multi-root countermodel: None
+n=2: {'acyclic': 3, 'coherent': 2, 'one_found': 2, 'counterexamples': 0}; multi-root countermodel: {'arcs': [], 'roots': [0, 1]}
+n=3: {'acyclic': 25, 'coherent': 15, 'one_found': 15, 'counterexamples': 0}; multi-root countermodel: {'arcs': [], 'roots': [0, 1, 2]}
+n=4: {'acyclic': 543, 'coherent': 316, 'one_found': 316, 'counterexamples': 0}; multi-root countermodel: {'arcs': [], 'roots': [0, 1, 2, 3]}

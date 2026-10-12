@@ -1,0 +1,237 @@
+Neoplatonic.exists_root_ancestor.{u} {α : Type u} (prior : α → α → Prop) (wf : WellFounded prior) (x : α) :
+  ∃ r, Neoplatonic.Root prior r ∧ Neoplatonic.Reach prior r x
+'Neoplatonic.exists_root_ancestor' depends on axioms: [propext, Classical.choice, Quot.sound]
+Neoplatonic.root_ancestors_agree.{u} {α : Type u} {prior : α → α → Prop}
+  (singleParent : ∀ (x y z : α), prior x z → prior y z → x = y) {r z : α} (hr : Neoplatonic.Root prior r)
+  (hrz : Neoplatonic.Reach prior r z) (s : α) : Neoplatonic.Root prior s → Neoplatonic.Reach prior s z → r = s
+'Neoplatonic.root_ancestors_agree' does not depend on any axioms
+Neoplatonic.amalgamation_unique_first_principle.{u} {α : Type u} (theory : Neoplatonic.AmalgamatedGroundTheory α)
+  (seed : α) : ∃! g, Neoplatonic.FirstPrinciple theory.prior g
+'Neoplatonic.amalgamation_unique_first_principle' depends on axioms: [propext, Classical.choice, Quot.sound]
+Neoplatonic.least_iff_initial.{u} {α : Type u} [PartialOrder α] (g : α) :
+  (∀ (x : α), g ≤ x) ↔ Nonempty (CategoryTheory.Limits.IsInitial g)
+'Neoplatonic.least_iff_initial' depends on axioms: [propext, Classical.choice, Quot.sound]
+Neoplatonic.first_principle_iff_initial.{u} {α : Type u} [PartialOrder α] (g : α) :
+  Neoplatonic.FirstPrinciple (fun a b => a < b) g ↔ Nonempty (CategoryTheory.Limits.IsInitial g)
+'Neoplatonic.first_principle_iff_initial' depends on axioms: [propext, Classical.choice, Quot.sound]
+Neoplatonic.grounding_first_principle_iff_initial.{u} {α : Type u} (r : α → α → Prop) (wf : WellFounded r) (g : α) :
+  Neoplatonic.FirstPrinciple r g ↔ Nonempty (CategoryTheory.Limits.IsInitial g)
+'Neoplatonic.grounding_first_principle_iff_initial' depends on axioms: [propext, Classical.choice, Quot.sound]
+Neoplatonic.coherent_well_founded : WellFounded Neoplatonic.CoherentPrior
+'Neoplatonic.coherent_well_founded' does not depend on any axioms
+Neoplatonic.origin_reaches (x : Neoplatonic.CoherentNode) :
+  Neoplatonic.Reach Neoplatonic.CoherentPrior Neoplatonic.CoherentNode.origin x
+'Neoplatonic.origin_reaches' does not depend on any axioms
+Neoplatonic.every_node_reaches_apex (x : Neoplatonic.CoherentNode) :
+  Neoplatonic.Reach Neoplatonic.CoherentPrior x Neoplatonic.CoherentNode.apex
+'Neoplatonic.every_node_reaches_apex' does not depend on any axioms
+Neoplatonic.coherent_unique_first_principle : ∃! g, Neoplatonic.FirstPrinciple Neoplatonic.CoherentPrior g
+'Neoplatonic.coherent_unique_first_principle' depends on axioms: [propext, Classical.choice, Quot.sound]
+Neoplatonic.coherent_allows_multiple_parents :
+  Neoplatonic.CoherentPrior Neoplatonic.CoherentNode.origin Neoplatonic.CoherentNode.apex ∧
+    Neoplatonic.CoherentPrior Neoplatonic.CoherentNode.branch Neoplatonic.CoherentNode.apex
+'Neoplatonic.coherent_allows_multiple_parents' does not depend on any axioms
+Neoplatonic.compact_lower_directed_first_principle.{u} {α : Type u} [PartialOrder α] [TopologicalSpace α]
+  [CompactSpace α] [Nonempty α] (lowerDirected : ∀ (x y : α), ∃ z ≤ x, z ≤ y)
+  (closedLower : ∀ (x : α), IsClosed (Set.Iic x)) : ∃! g, Neoplatonic.FirstPrinciple (fun a b => a < b) g
+'Neoplatonic.compact_lower_directed_first_principle' depends on axioms: [propext, Classical.choice, Quot.sound]
+Neoplatonic.ancestor_of_root_eq.{u} {α : Type u} {prior : α → α → Prop} {x y : α} (hy : Neoplatonic.Root prior y)
+  (h : Neoplatonic.Reach prior x y) : x = y
+'Neoplatonic.ancestor_of_root_eq' does not depend on any axioms
+Neoplatonic.exists_root.{u} {α : Type u} (prior : α → α → Prop) (wf : WellFounded prior) (seed : α) :
+  ∃ root, Neoplatonic.Root prior root
+'Neoplatonic.exists_root' depends on axioms: [propext, Classical.choice, Quot.sound]
+Neoplatonic.unique_first_principle.{u} {α : Type u} (theory : Neoplatonic.GroundTheory α) (seed : α) :
+  ∃! x, Neoplatonic.FirstPrinciple theory.prior x
+'Neoplatonic.unique_first_principle' depends on axioms: [propext, Classical.choice, Quot.sound]
+Neoplatonic.linear_unique_first_principle.{u} {α : Type u} (theory : Neoplatonic.LinearGroundTheory α) (seed : α) :
+  ∃! x, Neoplatonic.FirstPrinciple theory.prior x
+'Neoplatonic.linear_unique_first_principle' depends on axioms: [propext, Classical.choice, Quot.sound]
+Neoplatonic.nat_unbounded_above (n : ℕ) : ∃ m, n < m
+'Neoplatonic.nat_unbounded_above' does not depend on any axioms
+Neoplatonic.nat_reachable_from_zero (n : ℕ) : Neoplatonic.Reach (fun a b => a < b) 0 n
+'Neoplatonic.nat_reachable_from_zero' does not depend on any axioms
+Neoplatonic.zero_is_unique_first_principle : ∃! x, Neoplatonic.FirstPrinciple Neoplatonic.natTheory.prior x
+'Neoplatonic.zero_is_unique_first_principle' depends on axioms: [propext, Classical.choice, Quot.sound]
+Neoplatonic.integers_have_no_root : ¬∃ z, Neoplatonic.Root (fun x y => x < y) z
+'Neoplatonic.integers_have_no_root' depends on axioms: [propext, Quot.sound]
+Neoplatonic.merge_not_locally_coherent : ¬Neoplatonic.LocallyCoherent Neoplatonic.MergePrior
+'Neoplatonic.merge_not_locally_coherent' does not depend on any axioms
+Neoplatonic.merge_connected_counterexample :
+  WellFounded Neoplatonic.MergePrior ∧
+    Neoplatonic.CommonEffects Neoplatonic.MergePrior ∧
+      Neoplatonic.Connected Neoplatonic.MergePrior ∧ ¬∃ g, Neoplatonic.FirstPrinciple Neoplatonic.MergePrior g
+'Neoplatonic.merge_connected_counterexample' does not depend on any axioms
+Neoplatonic.empty_prior_local_counterexample :
+  WellFounded Neoplatonic.emptyPrior ∧
+    Neoplatonic.LocallyCoherent Neoplatonic.emptyPrior ∧ ¬∃ g, Neoplatonic.FirstPrinciple Neoplatonic.emptyPrior g
+'Neoplatonic.empty_prior_local_counterexample' does not depend on any axioms
+Neoplatonic.integers_not_well_founded : ¬WellFounded fun x y => x < y
+'Neoplatonic.integers_not_well_founded' depends on axioms: [propext, Classical.choice, Quot.sound]
+Neoplatonic.integers_local_directed_without_root :
+  (Neoplatonic.LocallyCoherent fun x y => x < y) ∧
+    (Neoplatonic.CommonEffects fun x y => x < y) ∧
+      (Neoplatonic.Connected fun x y => x < y) ∧ ¬∃ g, Neoplatonic.FirstPrinciple (fun x y => x < y) g
+'Neoplatonic.integers_local_directed_without_root' depends on axioms: [propext, Classical.choice, Quot.sound]
+Neoplatonic.fork_reach_reverse {x y : Neoplatonic.MergeNode} :
+  Neoplatonic.Reach Neoplatonic.ForkPrior x y ↔ Neoplatonic.Reach Neoplatonic.MergePrior y x
+'Neoplatonic.fork_reach_reverse' does not depend on any axioms
+Neoplatonic.fork_apex_first_principle : Neoplatonic.FirstPrinciple Neoplatonic.ForkPrior Neoplatonic.MergeNode.apex
+'Neoplatonic.fork_apex_first_principle' does not depend on any axioms
+Neoplatonic.fork_well_founded : WellFounded Neoplatonic.ForkPrior
+'Neoplatonic.fork_well_founded' does not depend on any axioms
+Neoplatonic.fork_connected_not_common_effects :
+  WellFounded Neoplatonic.ForkPrior ∧
+    Neoplatonic.LocallyCoherent Neoplatonic.ForkPrior ∧
+      Neoplatonic.Connected Neoplatonic.ForkPrior ∧ ¬Neoplatonic.CommonEffects Neoplatonic.ForkPrior
+'Neoplatonic.fork_connected_not_common_effects' depends on axioms: [propext, Classical.choice, Quot.sound]
+Neoplatonic.diamond_edge_rank {x y : Neoplatonic.DiamondNode} (h : Neoplatonic.DiamondPrior x y) :
+  Neoplatonic.diamondRank y = Neoplatonic.diamondRank x + 1
+'Neoplatonic.diamond_edge_rank' does not depend on any axioms
+Neoplatonic.diamond_well_founded : WellFounded Neoplatonic.DiamondPrior
+'Neoplatonic.diamond_well_founded' does not depend on any axioms
+Neoplatonic.diamond_origin_reaches (x : Neoplatonic.DiamondNode) :
+  Neoplatonic.Reach Neoplatonic.DiamondPrior Neoplatonic.DiamondNode.origin x
+'Neoplatonic.diamond_origin_reaches' does not depend on any axioms
+Neoplatonic.diamond_reaches_apex (x : Neoplatonic.DiamondNode) :
+  Neoplatonic.Reach Neoplatonic.DiamondPrior x Neoplatonic.DiamondNode.apex
+'Neoplatonic.diamond_reaches_apex' does not depend on any axioms
+Neoplatonic.diamond_unique_first_principle : ∃! g, Neoplatonic.FirstPrinciple Neoplatonic.DiamondPrior g
+'Neoplatonic.diamond_unique_first_principle' depends on axioms: [propext, Classical.choice, Quot.sound]
+Neoplatonic.diamond_not_single_parent :
+  ¬∀ (x y z : Neoplatonic.DiamondNode), Neoplatonic.DiamondPrior x z → Neoplatonic.DiamondPrior y z → x = y
+'Neoplatonic.diamond_not_single_parent' does not depend on any axioms
+Neoplatonic.diamond_rank_increases {x y : Neoplatonic.DiamondNode}
+  (h : Neoplatonic.Reach Neoplatonic.DiamondPrior x y) : x = y ∨ Neoplatonic.diamondRank x < Neoplatonic.diamondRank y
+'Neoplatonic.diamond_rank_increases' depends on axioms: [propext, Quot.sound]
+Neoplatonic.diamond_edges_are_covers {x y : Neoplatonic.DiamondNode} (edge : Neoplatonic.DiamondPrior x y) :
+  ¬∃ z, Neoplatonic.Reach Neoplatonic.DiamondPrior x z ∧ Neoplatonic.Reach Neoplatonic.DiamondPrior z y ∧ x ≠ z ∧ z ≠ y
+'Neoplatonic.diamond_edges_are_covers' depends on axioms: [propext, Quot.sound]
+Neoplatonic.reach_trans.{u} {α : Type u} {prior : α → α → Prop} {x y z : α} (hxy : Neoplatonic.Reach prior x y)
+  (hyz : Neoplatonic.Reach prior y z) : Neoplatonic.Reach prior x z
+'Neoplatonic.reach_trans' does not depend on any axioms
+Neoplatonic.local_coherence_unique_root.{u} {α : Type u} (prior : α → α → Prop) (wf : WellFounded prior)
+  (lc : Neoplatonic.LocallyCoherent prior) (z r s : α) :
+  Neoplatonic.Root prior r →
+    Neoplatonic.Root prior s → Neoplatonic.Reach prior r z → Neoplatonic.Reach prior s z → r = s
+'Neoplatonic.local_coherence_unique_root' depends on axioms: [propext, Classical.choice, Quot.sound]
+Neoplatonic.confluent_unique_first_principle.{u} {α : Type u} (theory : Neoplatonic.ConfluentGroundTheory α)
+  (seed : α) : ∃! g, Neoplatonic.FirstPrinciple theory.prior g
+'Neoplatonic.confluent_unique_first_principle' depends on axioms: [propext, Classical.choice, Quot.sound]
+Neoplatonic.merge_left_root : Neoplatonic.Root Neoplatonic.MergePrior Neoplatonic.MergeNode.left
+'Neoplatonic.merge_left_root' does not depend on any axioms
+Neoplatonic.merge_right_root : Neoplatonic.Root Neoplatonic.MergePrior Neoplatonic.MergeNode.right
+'Neoplatonic.merge_right_root' does not depend on any axioms
+Neoplatonic.merge_well_founded : WellFounded Neoplatonic.MergePrior
+'Neoplatonic.merge_well_founded' does not depend on any axioms
+Neoplatonic.merge_reaches_apex (x : Neoplatonic.MergeNode) :
+  Neoplatonic.Reach Neoplatonic.MergePrior x Neoplatonic.MergeNode.apex
+'Neoplatonic.merge_reaches_apex' does not depend on any axioms
+Neoplatonic.merge_common_effect (x y : Neoplatonic.MergeNode) :
+  ∃ z, Neoplatonic.Reach Neoplatonic.MergePrior x z ∧ Neoplatonic.Reach Neoplatonic.MergePrior y z
+'Neoplatonic.merge_common_effect' does not depend on any axioms
+Neoplatonic.merge_no_universal_one : ¬∃ g, Neoplatonic.FirstPrinciple Neoplatonic.MergePrior g
+'Neoplatonic.merge_no_universal_one' does not depend on any axioms
+Neoplatonic.merge_not_single_parent :
+  ¬∀ (x y z : Neoplatonic.MergeNode), Neoplatonic.MergePrior x z → Neoplatonic.MergePrior y z → x = y
+'Neoplatonic.merge_not_single_parent' does not depend on any axioms
+Neoplatonic.modal_necessity_does_not_imply_ungrounded :
+  (∀ (w : Bool), Neoplatonic.existsEverywhere w true) ∧ ¬Neoplatonic.Root Neoplatonic.groundsSecond true
+'Neoplatonic.modal_necessity_does_not_imply_ungrounded' does not depend on any axioms
+Neoplatonic.empty_prior_well_founded : WellFounded Neoplatonic.emptyPrior
+'Neoplatonic.empty_prior_well_founded' does not depend on any axioms
+Neoplatonic.every_nat_is_root_of_empty_prior (n : ℕ) : Neoplatonic.Root Neoplatonic.emptyPrior n
+'Neoplatonic.every_nat_is_root_of_empty_prior' does not depend on any axioms
+Neoplatonic.empty_prior_lacks_common_origin :
+  ¬∀ (x y : ℕ), ∃ z, Neoplatonic.Reach Neoplatonic.emptyPrior z x ∧ Neoplatonic.Reach Neoplatonic.emptyPrior z y
+'Neoplatonic.empty_prior_lacks_common_origin' does not depend on any axioms
+Neoplatonic.reach_antisymm.{u} {α : Type u} {r : α → α → Prop} (wf : WellFounded r) {x y : α}
+  (hxy : Neoplatonic.Reach r x y) (hyx : Neoplatonic.Reach r y x) : x = y
+'Neoplatonic.reach_antisymm' does not depend on any axioms
+Neoplatonic.reach_lt_iff_le.{u} {α : Type u} [PartialOrder α] {x y : α} :
+  Neoplatonic.Reach (fun a b => a < b) x y ↔ x ≤ y
+'Neoplatonic.reach_lt_iff_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+Neoplatonic.first_principle_iff_least.{u} {α : Type u} [PartialOrder α] (g : α) :
+  Neoplatonic.FirstPrinciple (fun a b => a < b) g ↔ ∀ (x : α), g ≤ x
+'Neoplatonic.first_principle_iff_least' depends on axioms: [propext, Classical.choice, Quot.sound]
+Neoplatonic.order_bot_first_principle.{u} {α : Type u} [PartialOrder α] [OrderBot α] :
+  ∃! g, Neoplatonic.FirstPrinciple (fun a b => a < b) g
+'Neoplatonic.order_bot_first_principle' depends on axioms: [propext, Classical.choice, Quot.sound]
+Neoplatonic.complete_lattice_first_principle.{u} {α : Type u} [CompleteLattice α] :
+  ∃! g, Neoplatonic.FirstPrinciple (fun a b => a < b) g
+'Neoplatonic.complete_lattice_first_principle' depends on axioms: [propext, Classical.choice, Quot.sound]
+Neoplatonic.meet_well_founded_first_principle.{u} {α : Type u} [SemilatticeInf α] (wf : WellFounded fun a b => a < b)
+  (seed : α) : ∃! g, Neoplatonic.FirstPrinciple (fun a b => a < b) g
+'Neoplatonic.meet_well_founded_first_principle' depends on axioms: [propext, Classical.choice, Quot.sound]
+Neoplatonic.rh_forces_critical_line (rh : RiemannHypothesis) (s : ℂ) (hs : Neoplatonic.CriticalZero s) : s.re = 1 / 2
+'Neoplatonic.rh_forces_critical_line' depends on axioms: [propext, Classical.choice, Quot.sound]
+Neoplatonic.rh_implies_spectral_alignment (rh : RiemannHypothesis) : Neoplatonic.SpectralAligned
+'Neoplatonic.rh_implies_spectral_alignment' depends on axioms: [propext, Classical.choice, Quot.sound]
+Neoplatonic.rh_conditional_first_principle.{u} {α : Type u} (theory : Neoplatonic.RHGroundTheory α)
+  (rh : RiemannHypothesis) : ∃! x, Neoplatonic.FirstPrinciple theory.prior x
+'Neoplatonic.rh_conditional_first_principle' depends on axioms: [propext, Classical.choice, Quot.sound]
+Neoplatonic.rh_unique_spectral_axis (rh : RiemannHypothesis) (hasNontrivialZero : ∃ s, Neoplatonic.CriticalZero s) :
+  ∃! c, ∀ (s : ℂ), Neoplatonic.CriticalZero s → s.re = c
+'Neoplatonic.rh_unique_spectral_axis' depends on axioms: [propext, Classical.choice, Quot.sound]
+Neoplatonic.arithmetic_allows_opposed_one_interpretations : (∃ God n, God n) ∧ ∃ God, ¬∃ n, God n
+'Neoplatonic.arithmetic_allows_opposed_one_interpretations' does not depend on any axioms
+Neoplatonic.rh_compatible_with_no_first_principle (_rh : RiemannHypothesis) :
+  WellFounded Neoplatonic.emptyPrior ∧ ¬∃ g, Neoplatonic.FirstPrinciple Neoplatonic.emptyPrior g
+'Neoplatonic.rh_compatible_with_no_first_principle' depends on axioms: [propext, Classical.choice, Quot.sound]
+Neoplatonic.first_principle_supplies_spectral_bridge.{u_1} {α : Type u_1} {r : α → α → Prop}
+  (h : ∃ g, Neoplatonic.FirstPrinciple r g) :
+  Neoplatonic.SpectralAligned → ∀ (x y : α), ∃ z, Neoplatonic.Reach r z x ∧ Neoplatonic.Reach r z y
+'Neoplatonic.first_principle_supplies_spectral_bridge' depends on axioms: [propext, Classical.choice, Quot.sound]
+Neoplatonic.reach_iff_reflTransGen.{u} {α : Type u} {r : α → α → Prop} {x y : α} :
+  Neoplatonic.Reach r x y ↔ Relation.ReflTransGen r x y
+'Neoplatonic.reach_iff_reflTransGen' does not depend on any axioms
+Neoplatonic.reverse_reach_iff.{u} {α : Type u} {r : α → α → Prop} {x y : α} :
+  Relation.ReflTransGen (fun a b => r b a) x y ↔ Neoplatonic.Reach r y x
+'Neoplatonic.reverse_reach_iff' does not depend on any axioms
+Neoplatonic.backward_newman.{u} {α : Type u} (r : α → α → Prop) (wf : WellFounded r)
+  (lc : Neoplatonic.LocallyCoherent r) : Neoplatonic.BackwardConfluent r
+'Neoplatonic.backward_newman' depends on axioms: [propext, Classical.choice, Quot.sound]
+Neoplatonic.newman_rewriting.{u} {α : Type u} (r : α → α → Prop) (wf : WellFounded r)
+  (lc : Neoplatonic.LocallyCoherent r) {z x y : α} (hx : Relation.ReflTransGen (fun a b => r b a) z x)
+  (hy : Relation.ReflTransGen (fun a b => r b a) z y) : Relation.Join (Relation.ReflTransGen fun a b => r b a) x y
+'Neoplatonic.newman_rewriting' depends on axioms: [propext, Classical.choice, Quot.sound]
+Neoplatonic.local_coherence_iff_unique_root_ancestor.{u} {α : Type u} (r : α → α → Prop) (wf : WellFounded r) :
+  Neoplatonic.LocallyCoherent r ↔ ∀ (z : α), ∃! a, Neoplatonic.Root r a ∧ Neoplatonic.Reach r a z
+'Neoplatonic.local_coherence_iff_unique_root_ancestor' depends on axioms: [propext, Classical.choice, Quot.sound]
+Neoplatonic.reach_eqvGen.{u} {α : Type u} {r : α → α → Prop} {x y : α} (h : Neoplatonic.Reach r x y) :
+  Relation.EqvGen r x y
+'Neoplatonic.reach_eqvGen' does not depend on any axioms
+Neoplatonic.common_effects_connected.{u} {α : Type u} {r : α → α → Prop} (ce : Neoplatonic.CommonEffects r) :
+  Neoplatonic.Connected r
+'Neoplatonic.common_effects_connected' does not depend on any axioms
+Neoplatonic.connected_common_prior.{u} {α : Type u} (r : α → α → Prop) (wf : WellFounded r)
+  (lc : Neoplatonic.LocallyCoherent r) (conn : Neoplatonic.Connected r) : Neoplatonic.CommonPrior r
+'Neoplatonic.connected_common_prior' depends on axioms: [propext, Classical.choice, Quot.sound]
+Neoplatonic.connected_unique_first_principle.{u} {α : Type u} (r : α → α → Prop) (wf : WellFounded r)
+  (lc : Neoplatonic.LocallyCoherent r) (conn : Neoplatonic.Connected r) (seed : α) :
+  ∃! g, Neoplatonic.FirstPrinciple r g
+'Neoplatonic.connected_unique_first_principle' depends on axioms: [propext, Classical.choice, Quot.sound]
+Neoplatonic.common_prior_iff_first_principle.{u} {α : Type u} (r : α → α → Prop) (wf : WellFounded r) (seed : α) :
+  Neoplatonic.CommonPrior r ↔ ∃! g, Neoplatonic.FirstPrinciple r g
+'Neoplatonic.common_prior_iff_first_principle' depends on axioms: [propext, Classical.choice, Quot.sound]
+Neoplatonic.local_connected_iff_first_principle.{u} {α : Type u} (r : α → α → Prop) (wf : WellFounded r) (seed : α) :
+  Neoplatonic.LocallyCoherent r ∧ Neoplatonic.Connected r ↔ ∃! g, Neoplatonic.FirstPrinciple r g
+'Neoplatonic.local_connected_iff_first_principle' depends on axioms: [propext, Classical.choice, Quot.sound]
+Neoplatonic.unique_root_iff_first_principle.{u} {α : Type u} (r : α → α → Prop) (wf : WellFounded r) :
+  (∃! g, Neoplatonic.Root r g) ↔ ∃! g, Neoplatonic.FirstPrinciple r g
+'Neoplatonic.unique_root_iff_first_principle' depends on axioms: [propext, Classical.choice, Quot.sound]
+Neoplatonic.empty_domain_counterexample :
+  (WellFounded fun x x => False) ∧
+    (Neoplatonic.LocallyCoherent fun x x => False) ∧
+      (Neoplatonic.CommonEffects fun x x => False) ∧ ¬∃ g, Neoplatonic.FirstPrinciple (fun x x => False) g
+'Neoplatonic.empty_domain_counterexample' does not depend on any axioms
+Neoplatonic.unique_witness_fixed.{u} {α : Type u} (P : α → Prop) (f : α → α) (invariant : ∀ (x : α), P x → P (f x))
+  (unique : ∃! x, P x) : ∃ x, P x ∧ f x = x
+'Neoplatonic.unique_witness_fixed' does not depend on any axioms
+Neoplatonic.no_translation_invariant_integer_one (P : ℤ → Prop) (translationInvariant : ∀ (n : ℤ), P n → P (n + 1)) :
+  ¬∃! n, P n
+'Neoplatonic.no_translation_invariant_integer_one' depends on axioms: [propext, Quot.sound]
+Neoplatonic.all_integers_indistinguishable : (∀ (n : ℤ), True → True) ∧ ¬∃! n, True
+'Neoplatonic.all_integers_indistinguishable' depends on axioms: [propext, Quot.sound]
+Neoplatonic.natural_origin_fixed : ∃! n, n = 0
+'Neoplatonic.natural_origin_fixed' does not depend on any axioms

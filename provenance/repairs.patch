@@ -1,0 +1,493 @@
+--- original/Neoplatonic/Amalgamation.lean
++++ revised/Neoplatonic/Amalgamation.lean
+@@ -1,3 +1,5 @@
++import Neoplatonic.Core
++
+ /-!
+ # Unity from compositional closure and unique immediate grounding
+ 
+@@ -12,7 +14,6 @@
+ is metaphysically very demanding: it forbids genuine joint immediate
+ causation and should be treated as a target of philosophical scrutiny.
+ -/
+-import Neoplatonic.Core
+ 
+ namespace Neoplatonic
+ 
+@@ -40,15 +41,15 @@
+     {r z : α} (hr : Root prior r) (hrz : Reach prior r z) :
+     ∀ s : α, Root prior s → Reach prior s z → r = s := by
+   induction hrz with
+-  | refl x =>
++  | refl =>
+       intro s hs hsx
+       exact (ancestor_of_root_eq hr hsx).symm
+-  | @step x y z hxy hyz ih =>
++  | @step y z hxy hyz ih =>
+       intro s hs hsz
+       cases hsz with
+-      | refl _ =>
++      | refl =>
+           exact False.elim (hs ⟨y, hyz⟩)
+-      | @step _ w _ hsw hwz =>
++      | @step w _ hsw hwz =>
+           have h : y = w := singleParent y w z hyz hwz
+           subst w
+           exact ih s hs hsw
+--- original/Neoplatonic/CoherentModel.lean
++++ revised/Neoplatonic/CoherentModel.lean
+@@ -1,3 +1,5 @@
++import Neoplatonic.LocalConfluence
++
+ /-!
+ # A non-linear model of the local-confluence axioms
+ 
+@@ -10,7 +12,6 @@
+ `branch`). The model therefore satisfies local coherence while
+ violating the rigid single-parent premise of Amalgamation.lean.
+ -/
+-import Neoplatonic.LocalConfluence
+ 
+ namespace Neoplatonic
+ 
+--- original/Neoplatonic/Core.lean
++++ revised/Neoplatonic/Core.lean
+@@ -1,3 +1,7 @@
++import Mathlib.Logic.Relation
++import Mathlib.Data.Int.Basic
++import Mathlib.Tactic.Basic
++
+ /-!
+ # A Neoplatonic first-principle theorem
+ 
+@@ -11,8 +15,6 @@
+ No `sorry` or theorem-level `axiom` declarations are used.
+ The assumptions are fields of `GroundTheory`.
+ -/
+-
+-import Mathlib
+ 
+ namespace Neoplatonic
+ 
+@@ -36,7 +38,7 @@
+     {prior : α → α → Prop} {x y : α}
+     (hy : Root prior y) (h : Reach prior x y) : x = y := by
+   cases h with
+-  | refl _ => rfl
++  | refl => rfl
+   | step _ hlast =>
+       exact False.elim (hy ⟨_, hlast⟩)
+ 
+@@ -77,7 +79,7 @@
+     simpa [ha] using htoY
+   refine ⟨root, ⟨hroot, all⟩, ?_⟩
+   intro y hy
+-  exact ancestor_of_root_eq hy.1 (all y)
++  exact (ancestor_of_root_eq hy.1 (all y)).symm
+ 
+ /-- Alternative bridge: ontological priority is a strict, total comparison.
+     This is mathematically stronger than the common-ancestor condition but
+--- original/Neoplatonic/LocalConfluence.lean
++++ revised/Neoplatonic/LocalConfluence.lean
+@@ -1,3 +1,5 @@
++import Neoplatonic.Amalgamation
++
+ /-!
+ # The One as a common normal form: a Newman-style theorem
+ 
+@@ -12,7 +14,6 @@
+ The proof parallels the termination + local confluence argument
+ behind Newman's lemma in abstract rewriting systems.
+ -/
+-import Neoplatonic.Amalgamation
+ 
+ namespace Neoplatonic
+ 
+@@ -23,7 +24,7 @@
+     {x y z : α} (hxy : Reach prior x y) (hyz : Reach prior y z) :
+     Reach prior x z := by
+   induction hyz with
+-  | refl _ => exact hxy
++  | refl => exact hxy
+   | step hyw hwz ih => exact Reach.step ih hwz
+ 
+ /-- A *local* assumption on pairs of immediate grounds of the same thing:
+@@ -38,7 +39,7 @@
+     pairs of immediate causes have ancestrally coherent histories. -/
+ theorem local_coherence_unique_root {α : Type u}
+     (prior : α → α → Prop) (wf : WellFounded prior)
+-    (local : LocallyCoherent prior) :
++    (lc : LocallyCoherent prior) :
+     ∀ z r s : α, Root prior r → Root prior s →
+       Reach prior r z → Reach prior s z → r = s := by
+   intro z
+@@ -46,14 +47,14 @@
+   | h z ih =>
+       intro r s hr hs hrz hsz
+       cases hrz with
+-      | refl _ =>
++      | refl =>
+           exact (ancestor_of_root_eq hr hsz).symm
+-      | @step _ x _ hrx hxz =>
++      | @step x _ hrx hxz =>
+           cases hsz with
+-          | refl _ =>
++          | refl =>
+               exact False.elim (hs ⟨x, hxz⟩)
+-          | @step _ y _ hsy hyz =>
+-              obtain ⟨w, hwx, hwy⟩ := local x y z hxz hyz
++          | @step y _ hsy hyz =>
++              obtain ⟨w, hwx, hwy⟩ := lc x y z hxz hyz
+               obtain ⟨u, hu, huw⟩ := exists_root_ancestor prior wf w
+               have hux : Reach prior u x := reach_trans huw hwx
+               have huy : Reach prior u y := reach_trans huw hwy
+--- original/Neoplatonic/MergeModel.lean
++++ revised/Neoplatonic/MergeModel.lean
+@@ -1,3 +1,5 @@
++import Neoplatonic.Amalgamation
++
+ /-!
+ # A concrete countermodel for the amalgamation theorem
+ 
+@@ -6,7 +8,6 @@
+ why a no-independent-merging premise is indispensable in the
+ alternative derivation.
+ -/
+-import Neoplatonic.Amalgamation
+ 
+ namespace Neoplatonic
+ 
+--- original/Neoplatonic/Modal.lean
++++ revised/Neoplatonic/Modal.lean
+@@ -1,3 +1,5 @@
++import Neoplatonic.Core
++
+ /-!
+ # Modal necessity is not identical to ontological independence
+ 
+@@ -8,8 +10,6 @@
+ Both beings exist in all worlds, but one is grounded in the other.
+ Therefore merely existing in every world does not make one a first principle.
+ -/
+-
+-import Neoplatonic.Core
+ 
+ namespace Neoplatonic
+ 
+--- original/Neoplatonic/Models.lean
++++ revised/Neoplatonic/Models.lean
+@@ -1,3 +1,5 @@
++import Neoplatonic.Core
++
+ /-!
+ # Countermodel and premise audit
+ 
+@@ -6,8 +8,6 @@
+ This refutes any claim that arithmetic infinitude plus well-foundedness
+ alone imply a unique One.
+ -/
+-
+-import Neoplatonic.Core
+ 
+ namespace Neoplatonic
+ 
+--- original/Neoplatonic/RH.lean
++++ revised/Neoplatonic/RH.lean
+@@ -1,3 +1,6 @@
++import Neoplatonic.Core
++import Mathlib.NumberTheory.LSeries.RiemannZeta
++
+ /-!
+ # The RH-dependent first-principle experiment
+ 
+@@ -9,8 +12,6 @@
+ It does NOT follow from RH or any known analytic theorem. It is explicitly
+ labeled as a hypothesis rather than smuggled in as a mathematical result.
+ -/
+-
+-import Neoplatonic.Core
+ 
+ namespace Neoplatonic
+ 
+--- original/Neoplatonic/RHGeometry.lean
++++ revised/Neoplatonic/RHGeometry.lean
+@@ -1,3 +1,5 @@
++import Neoplatonic.RH
++
+ /-!
+ # A non-decorative RH theorem: uniqueness of the spectral axis
+ 
+@@ -9,7 +11,6 @@
+ The extra witness hypothesis is included so that uniqueness of a
+ vacuously true property of an empty zero set is not inferred.
+ -/
+-import Neoplatonic.RH
+ 
+ namespace Neoplatonic
+ 
+--- original/Neoplatonic/Symmetry.lean
++++ revised/Neoplatonic/Symmetry.lean
+@@ -1,3 +1,5 @@
++import Neoplatonic.Core
++
+ /-!
+ # A symmetry obstruction to distinguishing the One
+ 
+@@ -7,7 +9,6 @@
+ predicate cannot select a unique integer. This obstruction is independent
+ of any arithmetic conjecture, including RH.
+ -/
+-import Neoplatonic.Core
+ 
+ namespace Neoplatonic
+ 
+--- original/README.md
++++ revised/README.md
+@@ -1,152 +1,98 @@
+-# The One from the Many? Lean 4, version 2
++# The One from the Many? A verified conditional research program
+ 
+-A falsification-oriented formalization of several Neoplatonic and
+-Avicennian arguments concerning a unique ground of reality.
++Lean 4 **4.24.0**, Mathlib **f897ebcf72cd16f89ab4577d0c826cd14afaafc7**.
++The project has **17 modules and 81 theorem declarations**. The ten
++exploratory modules have been repaired and extended with seven modules.
++The acceptance record is `verification/summary.json`; full types and
++axiom reports are in `verification/axioms.log`.
+ 
+-## Scope and verification status
++Read **AUDIT.md** for the complete theorem inventory, premise audit,
++dependency map, compilation repairs, model counts, and trust boundary.
++Read **RESEARCH.md** for proofs, counterexamples, philosophical analysis,
++and further research gates.
+ 
+-The target of the theorems is **one ungrounded source of every object
+-in a model of ontological priority**. Such an object is not automatically
+-an omniscient, perfectly good, conscious, or personal deity. Nothing in
+-these results proves that physical reality satisfies the grounding axioms.
++## Main mathematical result
+ 
+-The Lean 4 modules are written without `sorry` or theorem-level `axiom`
+-declarations. **Lean/kernel compilation was not possible in this session:**
+-`lean` and `lake` are not present in the runtime, and the working container
+-has no network access to install mathlib. The Lean proof scripts therefore
+-remain **uncompiled candidates**, even though a separate exhaustive
+-finite-model test passed. Never describe them as kernel verified until
+-all Lean modules compile in a mathlib project.
+-
+-## Theorems and epistemic status
+-
+-| Module | Statement | Source of substantive assumptions |
+-|---|---|---|
+-| `Core.lean` | Well-foundedness + common ancestors imply a unique universal root | **Common ancestry is assumed** |
+-| `Amalgamation.lean` | Well-foundedness + common *effects* + unique direct parent imply a unique universal root | The unique-parent constraint is very strong |
+-| `LocalConfluence.lean` | Well-foundedness + common effects + **local ancestral coherence of co-grounds** imply a unique universal root | Local coherence and common effects are metaphysical axioms |
+-| `Symmetry.lean` | A uniquely distinguished point must be fixed by every predicate-preserving symmetry; integer translation forbids a unique invariant integer | Pure mathematics |
+-| `RHGeometry.lean` | RH + a nontrivial zeta zero imply a unique shared real coordinate 1/2 among nontrivial zeros | RH remains an open conjecture; zero existence is an explicit premise |
+-| `RH.lean` | The actual mathlib RH implies critical-zero alignment; optional speculative bridge derives first principle | Spectral-to-ontology bridge **unjustified** |
+-| `Models.lean`, `MergeModel.lean` | Explicit failures when unity conditions are absent | Pure mathematical countermodels |
+-| `CoherentModel.lean` | A concrete grounding system with two immediate co-grounds satisfies the local-confluence version | Pure mathematical consistency witness |
+-| `Modal.lean` | Modal necessity does not imply being ungrounded | Pure mathematical countermodel |
+-
+-## Main result of version 2: backward confluence
+-
+-Interpret `prior x y` as `x` being an **immediate** explanatory ground of `y`.
+-Let `Reach prior x y` be the reflexive-transitive closure, so the same
+-notation also covers multi-step grounding histories.
+-
+-Define:
+-
+-1. `wf`: the relation is well-founded, ruling out endless regress along
+-   immediate grounding edges.
+-2. `commonEffect`: for all x,y, there is z such that `Reach prior x z`
+-   and `Reach prior y z`. Everyone can contribute to one composite.
+-3. `localCoherence`: if `prior x z` and `prior y z`, there exists w with
+-   `Reach prior w x` and `Reach prior w y`. Every pair of immediate co-grounds
+-   has ancestrally compatible explanatory histories.
+-4. A seed element exists.
+-
+-Then:
++Let `prior a b` mean that `a` grounds `b`, and `Reach prior` be the
++reflexive-transitive closure. A first principle is a root that reaches
++every object. For a nonempty carrier:
+ 
+ ```
+-existsUnique g, Root prior g AND forall x, Reach prior g x
++WellFounded prior
++∧ LocallyCoherent prior
++∧ Connected prior
++→ ∃! g, Root prior g ∧ ∀ x, Reach prior g x
+ ```
+ 
+-Proof strategy: well-founded induction guarantees each object has a
+-root ancestor. By a Newman-style induction on the common descendant,
+-local coherence makes its root ancestor unique. The common-effect
+-condition forces the roots of any pair of objects to agree. Thus every
+-object descends from one root. The proof carries no `God` predicate and
+-makes no mathematical assertions about supernatural attributes.
++`Connected` is undirected finite-path connectedness, using `Relation.EqvGen`.
++This is strictly weaker than the original common-effect condition.
++`Structure.lean` proves the result, full backward confluence (Newman's
++lemma), the correspondence with Mathlib's rewriting API, and the exact
++equivalences needed to audit whether premises simply repackage the target.
+ 
+-This condition **allows causal branching and merging**. For instance,
+-`CoherentModel.lean` has three objects and these edges:
++The displayed conjecture without nonemptiness is false on the empty
++carrier; the original source already required a seed. Counterexamples
++also show why well-foundedness, coherence, and connectivity cannot simply
++be omitted. `DiamondModel.lean` supplies genuine immediate cover edges
++with both branching and merging.
+ 
+-```
+-       origin
+-       /   \\
+-      v     v
+-   branch -> apex
++## What is and is not established
++
++All results are conditional mathematics or explicit model facts. None
++shows that reality satisfies the grounding premises. Under
++well-foundedness and nonemptiness, common ancestry is equivalent to a
++unique universal root; independent justification of that premise remains
++necessary. The target carries no consciousness, agency, goodness,
++personal deity, or modal necessity predicate.
++
++Additional results concern well-founded meet-semilattices, bottom and
++complete-lattice structures, compact lower-directed partial orders with
++closed principal lower sets, and initiality in the thin reachability
++category. Each result exposes its structural assumptions.
++
++The RH branch uses genuine Mathlib `RiemannHypothesis` as an explicit
++hypothesis. RH and a nontrivial-zero witness uniquely characterize the
++shared real coordinate `1/2`. The separate spectral-to-ancestry bridge is
++an unsupported premise. `RHIndependence.lean` gives a well-founded
++infinite grounding counterinterpretation with no universal root even
++under an RH hypothesis. This is not an independence result for RH in a
++foundational theory.
++
++## Reproduce
++
++Install the Lean toolchain in `lean-toolchain` and ensure `lake`, Git and
++Python 3.10+ are on PATH. The checked Python version was 3.12.
++
++```sh
++lake exe cache get Mathlib.Logic.Relation Mathlib.Data.Int.Basic Mathlib.Tactic.Basic Mathlib.NumberTheory.LSeries.RiemannZeta Mathlib.Order.CompleteLattice.Defs Mathlib.Topology.Compactness.Compact Mathlib.CategoryTheory.Category.Preorder Mathlib.CategoryTheory.Limits.Shapes.IsTerminal
++python verify.py
+ ```
+ 
+-The apex has two distinct immediate grounds, both tracing to `origin`.
+-This refutes the idea that the revised theorem secretly requires a
+-linear or single-parent causal chain.
++On Windows without Lean installed, `bootstrap.ps1` downloads and hashes
++Lean into `.toolchain/` inside this project, then fetches dependencies
++and runs the same gate. It does not install into the user home.
+ 
+-## Objection and research agenda
+-
+-- The `commonEffect` assumption amounts to a global connectedness or
+-  compositionality principle. Theorems based on local coherence alone
+-  permit multiple independent worlds / foundations.
+-- The `localCoherence` assumption rules out two *fundamentally independent*
+-  explanatory histories meeting at a composite. This is the main
+-  philosophical point to interrogate, not a consequence of number theory.
+-- In categorical language, the abstract first principle resembles an
+-  initial object in a thin category of grounding reachability. Uniqueness
+-  is characteristic of initial objects, while the **existence** of such
+-  an object always requires structural hypotheses beyond bare category
+-  axioms.
+-- Avicenna's `necessary-through-itself` is richer than `Root prior`.
+-  A modal/grounding bridge would need to be specified separately.
+-- Prove the underlying confluence theorem in mathlib's `Relation` API
+-  and link it to normal-form uniqueness; then seek weaker natural axioms
+-  on physical, conceptual, or computational compositionality.
+-
+-## RH branch
+-
+-Mathlib defines the genuine `RiemannHypothesis` in
+-[`Mathlib.NumberTheory.LSeries.RiemannZeta`](https://leanprover-community.github.io/mathlib4_docs/Mathlib/NumberTheory/LSeries/RiemannZeta.html).
+-
+-Under RH, the common real coordinate of the nontrivial zero spectrum
+-is 1/2. `RHGeometry.lean` adds a witness of a nontrivial zero so the
+-common coordinate is **uniquely** characterized. This is an authentic
+-conditional mathematical statement about the zeta function.
+-
+-In `RH.lean`, a separate field `spectralAlignmentToCommonPrior` is
+-**exactly the unsupported bridge** from number theory to metaphysics.
+-The RH extension cannot serve as a God proof without independent
+-argument for that bridge. `RHGeometry.lean` deliberately avoids that
+-problem by stating only the spectral consequence.
+-
+-## Exhaustive finite audits
+-
+-Run:
+-
+-```
+-python audit_models.py
+-python audit_v2.py
+-python audit_confluence.py
++```powershell
++powershell -ExecutionPolicy Bypass -File .\bootstrap.ps1
+ ```
+ 
+-For all labeled loopless DAGs with 1 to 4 nodes, the audit checks
+-`commonEffect`, `localCoherence`, and the unique-universal-root
+-conclusion. Of the 543 four-node DAGs, 216 satisfy both substantive
+-structural conditions, **0 violate the conclusion**, and **192 permit
+-more than one immediate parent**. This is a finite-model falsification
+-check, not a Lean kernel proof.
++Keep `lake-manifest.json`; it locks Mathlib and all transitive packages.
++The verification script builds the library, re-elaborates every source,
++prints every theorem's type and transitive axioms, rejects proof escapes
++and unexpected axioms, and reruns all model audits. It allows only Lean's
++standard `propext`, `Classical.choice`, and `Quot.sound`. No `sorry`,
++`admit`, extra global axioms, or native-decision proof shortcuts occur
++in project proof code. Dependency caches are part of the stated trust
++boundary. A CI workflow supplies the same gate; it has not been run on
++GitHub during this local audit.
+ 
+-## Compile with Lean/mathlib
++## Finite models
+ 
+-From inside a compatible mathlib-enabled Lean 4 project, copy `Neoplatonic/`
+-into the root and run:
+-
+-```
+-lake env lean Neoplatonic/Core.lean
+-lake env lean Neoplatonic/Amalgamation.lean
+-lake env lean Neoplatonic/LocalConfluence.lean
+-lake env lean Neoplatonic/Symmetry.lean
+-lake env lean Neoplatonic/Models.lean
+-lake env lean Neoplatonic/MergeModel.lean
+-lake env lean Neoplatonic/CoherentModel.lean
+-lake env lean Neoplatonic/Modal.lean
+-lake env lean Neoplatonic/RH.lean
+-lake env lean Neoplatonic/RHGeometry.lean
+-```
+-
+-A good next acceptance gate is to run all commands under a pinned mathlib
+-commit in CI, compare results to the finite audits, and inspect
+-`#print axioms` for the main theorems. At present, the limitations above
+-prevent asserting that Lean accepted the scripts.
++The three supplied scripts and a new Kahn/DFS checker agree on all
++labeled DAGs through four nodes. The independent checker additionally
++enumerates loops and the empty carrier, testing 66,067 relations total.
++For four nodes, 543 DAGs exist; 216 satisfy coherence and common effects;
++192 of those have a node with multiple parents. There are zero nonempty
++counterexamples. Requiring genuine cover edges changes those counts to
++219, 36 and 12. Finite enumeration is a falsification check, not the
++proof of the general theorem.
+--- original/verify.sh
++++ revised/verify.sh
+@@ -1,9 +1,4 @@
+ #!/usr/bin/env bash
+-# Run this from the root of a mathlib-enabled Lean project after copying
+-# Neoplatonic/ to that project root.
++# Run from this pinned project root, after `lake exe cache get`.
+ set -euo pipefail
+-for file in Core Amalgamation LocalConfluence Symmetry Models MergeModel CoherentModel Modal RH RHGeometry; do
+-  echo "Checking Neoplatonic/$file.lean"
+-  lake env lean "Neoplatonic/$file.lean"
+-done
+-echo "Every module was accepted by Lean."
++python3 verify.py

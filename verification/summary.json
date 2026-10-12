@@ -1,0 +1,278 @@
+{
+  "status": "passed",
+  "lean": "Lean (version 4.24.0, x86_64-w64-windows-gnu, commit 797c613eb9b6d4ec95db23e3e00af9ac6657f24b, Release)",
+  "mathlib": "f897ebcf72cd16f89ab4577d0c826cd14afaafc7",
+  "modules": 17,
+  "theorems": 81,
+  "axioms": {
+    "Neoplatonic.exists_root_ancestor": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Neoplatonic.root_ancestors_agree": [],
+    "Neoplatonic.amalgamation_unique_first_principle": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Neoplatonic.least_iff_initial": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Neoplatonic.first_principle_iff_initial": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Neoplatonic.grounding_first_principle_iff_initial": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Neoplatonic.coherent_well_founded": [],
+    "Neoplatonic.origin_reaches": [],
+    "Neoplatonic.every_node_reaches_apex": [],
+    "Neoplatonic.coherent_unique_first_principle": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Neoplatonic.coherent_allows_multiple_parents": [],
+    "Neoplatonic.compact_lower_directed_first_principle": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Neoplatonic.ancestor_of_root_eq": [],
+    "Neoplatonic.exists_root": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Neoplatonic.unique_first_principle": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Neoplatonic.linear_unique_first_principle": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Neoplatonic.nat_unbounded_above": [],
+    "Neoplatonic.nat_reachable_from_zero": [],
+    "Neoplatonic.zero_is_unique_first_principle": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Neoplatonic.integers_have_no_root": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Neoplatonic.merge_not_locally_coherent": [],
+    "Neoplatonic.merge_connected_counterexample": [],
+    "Neoplatonic.empty_prior_local_counterexample": [],
+    "Neoplatonic.integers_not_well_founded": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Neoplatonic.integers_local_directed_without_root": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Neoplatonic.fork_reach_reverse": [],
+    "Neoplatonic.fork_apex_first_principle": [],
+    "Neoplatonic.fork_well_founded": [],
+    "Neoplatonic.fork_connected_not_common_effects": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Neoplatonic.diamond_edge_rank": [],
+    "Neoplatonic.diamond_well_founded": [],
+    "Neoplatonic.diamond_origin_reaches": [],
+    "Neoplatonic.diamond_reaches_apex": [],
+    "Neoplatonic.diamond_unique_first_principle": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Neoplatonic.diamond_not_single_parent": [],
+    "Neoplatonic.diamond_rank_increases": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Neoplatonic.diamond_edges_are_covers": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Neoplatonic.reach_trans": [],
+    "Neoplatonic.local_coherence_unique_root": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Neoplatonic.confluent_unique_first_principle": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Neoplatonic.merge_left_root": [],
+    "Neoplatonic.merge_right_root": [],
+    "Neoplatonic.merge_well_founded": [],
+    "Neoplatonic.merge_reaches_apex": [],
+    "Neoplatonic.merge_common_effect": [],
+    "Neoplatonic.merge_no_universal_one": [],
+    "Neoplatonic.merge_not_single_parent": [],
+    "Neoplatonic.modal_necessity_does_not_imply_ungrounded": [],
+    "Neoplatonic.empty_prior_well_founded": [],
+    "Neoplatonic.every_nat_is_root_of_empty_prior": [],
+    "Neoplatonic.empty_prior_lacks_common_origin": [],
+    "Neoplatonic.reach_antisymm": [],
+    "Neoplatonic.reach_lt_iff_le": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Neoplatonic.first_principle_iff_least": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Neoplatonic.order_bot_first_principle": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Neoplatonic.complete_lattice_first_principle": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Neoplatonic.meet_well_founded_first_principle": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Neoplatonic.rh_forces_critical_line": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Neoplatonic.rh_implies_spectral_alignment": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Neoplatonic.rh_conditional_first_principle": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Neoplatonic.rh_unique_spectral_axis": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Neoplatonic.arithmetic_allows_opposed_one_interpretations": [],
+    "Neoplatonic.rh_compatible_with_no_first_principle": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Neoplatonic.first_principle_supplies_spectral_bridge": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Neoplatonic.reach_iff_reflTransGen": [],
+    "Neoplatonic.reverse_reach_iff": [],
+    "Neoplatonic.backward_newman": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Neoplatonic.newman_rewriting": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Neoplatonic.local_coherence_iff_unique_root_ancestor": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Neoplatonic.reach_eqvGen": [],
+    "Neoplatonic.common_effects_connected": [],
+    "Neoplatonic.connected_common_prior": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Neoplatonic.connected_unique_first_principle": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Neoplatonic.common_prior_iff_first_principle": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Neoplatonic.local_connected_iff_first_principle": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Neoplatonic.unique_root_iff_first_principle": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "Neoplatonic.empty_domain_counterexample": [],
+    "Neoplatonic.unique_witness_fixed": [],
+    "Neoplatonic.no_translation_invariant_integer_one": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Neoplatonic.all_integers_indistinguishable": [
+      "Quot.sound",
+      "propext"
+    ],
+    "Neoplatonic.natural_origin_fixed": []
+  },
+  "source_sha256": {
+    "Neoplatonic/Amalgamation.lean": "61c7af31696d0e9aa7c48715893b8496c516ec5cac6cda339ecf77ceb9342a98",
+    "Neoplatonic/Category.lean": "756dfd26b013f62c9dae9505e93ad66abc26aba7aeabb7db7f25126be224886b",
+    "Neoplatonic/CoherentModel.lean": "69285bdd6acd17eb950725b98b1dd3d84d74f592107441589b3c532e0fa45faf",
+    "Neoplatonic/Compactness.lean": "45c32437287211e4598bad35bfb6f18377ebc954a9cb59614663cf815ca0bb06",
+    "Neoplatonic/Core.lean": "a87ca87a93ceb014ffccf522ae809afd4fae324d56fa6970fc60a7a97d940121",
+    "Neoplatonic/Counterexamples.lean": "d4494503e7ed88795898713e931b0d5117ebac78660175506a807f243955a109",
+    "Neoplatonic/DiamondModel.lean": "555e39b525f1660159384dc940fb507f686cf2d96d6b8dbc6ec4d360debaad0f",
+    "Neoplatonic/LocalConfluence.lean": "676aabd0a8c21eecb0c4bbd8e7d14eb048e51836f68c6a9f689d4e854337cf7c",
+    "Neoplatonic/MergeModel.lean": "6b39bee3d6811b3459c3a089094b00c987202fdf509bd4cb38433a3ec75adea7",
+    "Neoplatonic/Modal.lean": "2d3b588cfaa391692d3c3a679f28d560f0ad3963a17832eb85b848b78bd102b2",
+    "Neoplatonic/Models.lean": "517d0cdab5ed8d36abfd6325ab34de32be226c581d1b1ca792cbcfcd33a6a014",
+    "Neoplatonic/Orders.lean": "a43ba4e4f3eb2a55f6720770e3406094a250145f8a3d1099cabf8f015a808a54",
+    "Neoplatonic/RH.lean": "c6b9007f0757a9548c3151907c5538a70b193a1e863778b8502053f2c5cd4d9f",
+    "Neoplatonic/RHGeometry.lean": "1bbe5a981a8a20eaae1e39482fe442eaa1abd2fe9586c7ac94f16f724a050504",
+    "Neoplatonic/RHIndependence.lean": "31f8c09e7ce5a8bf515f4407793054834c2f2eb738560ac5bd68bddf604dc19f",
+    "Neoplatonic/Structure.lean": "84f7d3aae45395b52e5e10efcab553c99fa4ba95cb66959593364c7bec709940",
+    "Neoplatonic/Symmetry.lean": "35cdc0a1e8b0ea03778152f9599274d9afe4446393937f2ce4a8b0ae513e0533",
+    "Neoplatonic.lean": "f0085943940ebba0e36f26f0d149f66914e60c9a788c1fa79a34dad51535549b",
+    "lean-toolchain": "42779d67b81608af8a12aa4328d2ab47ca201925b3b2bd68369587b5340bb434",
+    "lake-manifest.json": "b8c27656a2b5fedf0c1597169ed39d3a0f8da12c44bcd1ae69832faed74ce304",
+    "lakefile.toml": "72f6bb25a451e87beeaf76344bb760bbc44601d681f1feb3daad79c576343ce7",
+    "audit_confluence.py": "2645775a6c458a6fd268411302fd73c26cede11890a5beca9344b4a38d583dd0",
+    "audit_independent.py": "50ea43db3d03126433d111f3a0cf4ae8a2d2b41b2202148da07c9814f471018c",
+    "audit_models.py": "7b7926aa69154fdacaf292471c32f83bfd8a6415b3c95d620d7e0cdbc6e62330",
+    "audit_v2.py": "af87dc71f45b69c5cc9cb5a836bd21630e5d7dbf1f3f450071dd85c03027f817",
+    "verify.py": "faf42242398862fb98fd4dfd6fe9c95f68afa748aa76b6f85f73ecaecf5a5fd9",
+    "AxiomReport.lean": "75d51c97afe0c8c53c91fa335ccd9bb79134780c12601cf310bd61f60fd992a4"
+  }
+}

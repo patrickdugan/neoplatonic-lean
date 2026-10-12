@@ -1,0 +1,7 @@
+.lake/
+__pycache__/
+*.olean
+*.ilean
+.toolchain/
+verification/build-debug.log
+verification/models.log

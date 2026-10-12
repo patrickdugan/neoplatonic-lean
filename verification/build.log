@@ -1,0 +1,8 @@
+⚠ [136/172] Replayed Neoplatonic.Symmetry
+warning: Neoplatonic/Symmetry.lean:41:7: unused variable `n`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: Neoplatonic/Symmetry.lean:41:34: unused variable `n`
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+Build completed successfully (2773 jobs).
