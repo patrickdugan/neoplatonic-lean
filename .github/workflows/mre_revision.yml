@@ -1,0 +1,59 @@
+name: MRE revision instrument and kernel audit
+on:
+  push:
+    branches: [research/moral-realist-epistemics-v1]
+    paths:
+      - 'experiments/mre_revision_v1/**'
+      - 'experiments/mre_v1/**'
+      - '.github/workflows/mre_revision.yml'
+      - 'Unveiling.lean'
+  pull_request:
+    paths:
+      - 'experiments/mre_revision_v1/**'
+      - 'experiments/mre_v1/**'
+      - '.github/workflows/mre_revision.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Install pinned Lean
+        run: |
+          curl https://elan.lean-lang.org/elan-init.sh -sSf | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - name: Check parent, proofs, dynamic episodes and subprocess protocol
+        run: python3 experiments/mre_revision_v1/verify.py
+      - name: Preserve source and complete audit records
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mre-revision-v1-checked-package
+          retention-days: 30
+          include-hidden-files: true
+          path: |
+            experiments/mre_v1/*.py
+            experiments/mre_v1/*.lean
+            experiments/mre_v1/*.json
+            experiments/mre_v1/*.md
+            experiments/mre_revision_v1/*.py
+            experiments/mre_revision_v1/*.lean
+            experiments/mre_revision_v1/*.json
+            experiments/mre_revision_v1/*.md
+            Unveiling.lean
+            lean-toolchain
+            .github/workflows/mre.yml
+            .github/workflows/mre_revision.yml
+            verification/mre/*.json
+            verification/mre/*.log
+            verification/mre/AxiomReport.lean
+            verification/mre_revision/*.json
+            verification/mre_revision/*.jsonl
+            verification/mre_revision/*.txt
+            verification/mre_revision/*.log
+            verification/mre_revision/AxiomReport.lean
