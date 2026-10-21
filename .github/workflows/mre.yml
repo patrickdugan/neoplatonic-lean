@@ -1,0 +1,47 @@
+name: MRE-1 engineering checks
+on:
+  push:
+    branches: [research/moral-realist-epistemics-v1]
+    paths:
+      - 'experiments/mre_v1/**'
+      - '.github/workflows/mre.yml'
+      - 'Unveiling.lean'
+  pull_request:
+    paths:
+      - 'experiments/mre_v1/**'
+      - '.github/workflows/mre.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Install the pinned Lean runtime
+        run: |
+          curl https://elan.lean-lang.org/elan-init.sh -sSf | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - name: Kernel proofs, axiom inventory, and offline tests
+        run: python3 experiments/mre_v1/verify.py
+      - name: Preserve the research package and evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mre-v1-research-and-verification
+          retention-days: 30
+          path: |
+            experiments/mre_v1/*.md
+            experiments/mre_v1/*.json
+            experiments/mre_v1/*.lean
+            experiments/mre_v1/*.py
+            Unveiling.lean
+            lean-toolchain
+            .github/workflows/mre.yml
+            verification/mre/*.json
+            verification/mre/*.jsonl
+            verification/mre/*.log
+            verification/mre/AxiomReport.lean
