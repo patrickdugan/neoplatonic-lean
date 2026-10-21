@@ -1,0 +1,49 @@
+name: Tower of unveiling kernel audit
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'Unveiling.lean'
+      - 'verify_unveiling.py'
+      - 'audit_unveiling.py'
+      - '.github/workflows/unveiling.yml'
+      - 'lean-toolchain'
+  pull_request:
+    paths:
+      - 'Unveiling.lean'
+      - 'verify_unveiling.py'
+      - 'audit_unveiling.py'
+      - '.github/workflows/unveiling.yml'
+      - 'lean-toolchain'
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install pinned Lean
+        run: |
+          curl https://elan.lean-lang.org/elan-init.sh -sSf | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - name: Kernel-check and audit every theorem
+        run: python3 verify_unveiling.py
+      - name: Independent finite checks
+        run: |
+          if test -f audit_unveiling.py; then
+            python3 audit_unveiling.py | tee verification/unveiling/finite-audit.log
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: unveiling-proof-certificate
+          retention-days: 30
+          path: |
+            Unveiling.lean
+            verify_unveiling.py
+            audit_unveiling.py
+            lean-toolchain
+            verification/unveiling/*.log
+            verification/unveiling/*.json
+            verification/unveiling/AxiomReport.lean
