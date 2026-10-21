@@ -15,3 +15,4 @@ import Neoplatonic.DiamondModel
 import Neoplatonic.Counterexamples
 import Neoplatonic.Compactness
 import Neoplatonic.Category
+import Neoplatonic.UnveilingBridge
