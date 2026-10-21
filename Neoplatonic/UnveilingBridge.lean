@@ -40,8 +40,8 @@ theorem unveiling_capped_terminal_reachable_from_zero (cap : Nat) :
   constructor
   · cases cap with
     | zero => exact Reach.refl 0
-    | succ n => exact Reach.step (Reach.refl 0)
-        ⟨Nat.zero_lt_succ n, Nat.le_refl (n + 1)⟩
+    | succ n =>
+      exact Reach.step (Reach.refl 0) ⟨Nat.zero_lt_succ n, Nat.le_refl (n + 1)⟩
   · exact (Unveiling.capped_terminal_iff cap cap).mpr (Nat.le_refl cap)
 
 theorem unveiling_first_principle_does_not_determine_termination (cap : Nat) :
