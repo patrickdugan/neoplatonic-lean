@@ -183,8 +183,8 @@ def AtomAware (world atom : Bool) : Prop := world = atom
 theorem every_world_omits_an_atom (w : Bool) :
     ∃ p : Bool, ¬ AtomAware w p := by
   cases w
-  · exact ⟨true, by decide⟩
-  · exact ⟨false, by decide⟩
+  · exact ⟨true, by change false ≠ true; decide⟩
+  · exact ⟨false, by change true ≠ false; decide⟩
 
 theorem knows_there_is_an_unknown (w : Bool) :
     Knows twoWorldFrame (fun v => ∃ p : Bool, ¬ AtomAware v p) w := by
@@ -592,7 +592,7 @@ theorem truncation_fixed_iff_tail_false (n : Nat) (x : BitStream) :
     have hni : ¬ i < n := by omega
     have heq := congrFun h i
     simp [Truncate, hni] at heq
-    exact heq.symm
+    exact heq
   · intro h
     funext i
     by_cases hi : i < n
@@ -604,7 +604,7 @@ theorem all_true_stream_never_stabilizes (n : Nat) :
     Truncate n (fun _ => true) ≠ Truncate (n + 1) (fun _ => true) := by
   intro h
   have hi := congrFun h n
-  simp [Truncate, Nat.lt_succ_self] at hi
+  simp [Truncate] at hi
 
 theorem all_false_stream_is_fixed (n : Nat) :
     Truncate n (fun _ => false) = (fun _ => false) := by
