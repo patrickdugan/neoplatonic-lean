@@ -1,0 +1,33 @@
+name: Unveiling portable Lean runtime
+on:
+  workflow_dispatch:
+  push:
+    branches: ['research/tower-of-unveiling']
+    paths: ['.github/workflows/unveiling-toolchain.yml']
+permissions:
+  contents: read
+jobs:
+  runtime:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install the repository's pinned Lean toolchain
+        run: |
+          curl https://elan.lean-lang.org/elan-init.sh -sSf | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - name: Package a portable proof-checking runtime
+        run: |
+          lean --version | tee lean-version.txt
+          PREFIX="$(lean --print-prefix)"
+          tar --exclude='*.a' --exclude='*.c' --exclude='*.o' --exclude='*.ilean' --exclude='*.bc' -czf lean-runtime.tgz -C "$PREFIX" bin/lean bin/lake lib/lean
+          sha256sum lean-runtime.tgz > lean-runtime.sha256
+      - uses: actions/upload-artifact@v4
+        with:
+          name: unveiling-lean-runtime
+          compression-level: 0
+          retention-days: 7
+          path: |
+            lean-runtime.tgz
+            lean-runtime.sha256
+            lean-version.txt
